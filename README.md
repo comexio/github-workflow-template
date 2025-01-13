@@ -33,11 +33,11 @@ Com a centralização dos workflows, a Logcomex consolidou seus processos em um 
      - Gera relatórios de cobertura e logs detalhados de execução.
 
 4. **`sonar-scan`**  
-   - **Descrição**: Realiza a análise estática de código com o SonarQube e publica os artefatos gerados no SonarCloud.  
+   - **Descrição**: Realiza a análise estática de código com o SonarQube e publica os artefatos gerados no SonarQube.  
    - **Detalhes Técnicos**:
-     - Inclui autenticação com tokens do SonarCloud.
+     - Inclui autenticação com tokens do SonarQube.
      - Configura parâmetros personalizados para o scanner (ex: qualidade do código e métricas específicas).
-     - Exibe os resultados diretamente na interface do SonarCloud.
+     - Exibe os resultados diretamente na interface do SonarQube.
 
 5. **`feature-deploy`**  
    - **Descrição**: Automatiza o deploy de branches *feature candidate* em ambientes de desenvolvimento.  
