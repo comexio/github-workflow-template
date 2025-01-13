@@ -1,33 +1,109 @@
-## Github Workflow - Repositorio XXXXXX
-## Template - XXXXXX - Link XXXXXX
+# GitHub Workflow - Repositório `XXXXXX`
 
-## Github Workflow
-Com a centralização dos workflows agora a logcomex possue somente 1 repositório de templates para php.
+Com a centralização dos workflows, a Logcomex consolidou seus processos em um único repositório de templates específicos para PHP. Isso garante consistência, padronização e maior controle nos fluxos de desenvolvimento.
 
-- Workflow ```create-fc``` contém todas as instrucoes para criacao de uma nova branch feature candidate, ainda com integracao do jira e respeitando o padrao de nomenclaturas dos projetos.
+### Workflows Detalhados
 
-- Workflow ```create-rc``` e ```create-hotfix``` contém todas as instrucoes para execucao da criacao da release candidate, busca no github releases a ultima tag, instala no agent o plugin de versionamento semantico, realiza o bump de minor(fc) ou patch(hotfix), verifica se a branch já existe caso já exista apenas criará uma pull request contendo as alteracoes atuais e caso nao exista irá criar uma nova branch e realizara o upload para o github. a ultima etapa desse workflow será inserir a tag de prerelease para as novas branch criadas.
+1. **`create-fc` (Feature Candidate)**  
+   - **Descrição**: Contém todas as instruções necessárias para a criação de uma nova branch de *feature candidate* com integração ao Jira.  
+   - **Detalhes Técnicos**:
+     - Respeita o padrão de nomenclatura definido pelos projetos.
+     - Verifica a existência da branch antes de criar.
+     - Inclui tags de pré-release no fluxo, associadas às novas branches criadas.
+     - Atualiza automaticamente o status no Jira.
 
-- Workflow ```unit-test``` contém todas as instrucoes para execucao dos testes unitários existente do repositório.
+2. **`create-rc` (Release Candidate)** e **`create-hotfix`**  
+   - **Descrição**: Criam branches para release candidates e hotfixes, utilizando versionamento semântico.  
+   - **Fluxo Técnico**:
+     - Busca a última tag publicada no GitHub Releases.
+     - Instala o plugin de versionamento semântico no *runner* do GitHub Actions.
+     - Realiza o bump da versão:
+       - `minor` para *feature candidates*.
+       - `patch` para *hotfixes*.
+     - Valida a existência da branch:
+       - Se a branch já existe, apenas cria um Pull Request (PR) com as alterações atuais.
+       - Caso contrário, cria uma nova branch e realiza o upload para o repositório.
+     - Finaliza o fluxo adicionando uma tag de pré-release (`prerelease`) para sinalizar o estado da branch.
 
-- Workflow ```sonar-scan``` contém todas as instrucoes para execucao do scanner do sonarqube e publish dos artefatos gerados para o sonar cloud.
+3. **`unit-test`**  
+   - **Descrição**: Executa os testes unitários definidos no repositório.  
+   - **Detalhes Técnicos**:
+     - Configura o ambiente de testes (dependências e configurações).
+     - Utiliza ferramentas como PHPUnit ou outras especificadas no projeto.
+     - Gera relatórios de cobertura e logs detalhados de execução.
 
-- Workflow ```feature-deploy``` contém todas as instrucoes para execucao do deploy da feature candidate.
+4. **`sonar-scan`**  
+   - **Descrição**: Realiza a análise estática de código com o SonarQube e publica os artefatos gerados no SonarCloud.  
+   - **Detalhes Técnicos**:
+     - Inclui autenticação com tokens do SonarCloud.
+     - Configura parâmetros personalizados para o scanner (ex: qualidade do código e métricas específicas).
+     - Exibe os resultados diretamente na interface do SonarCloud.
 
-- Workflow ```hotfix-deploy``` contém todas as instrucoes para execucao do deploy da hotfix branch.
+5. **`feature-deploy`**  
+   - **Descrição**: Automatiza o deploy de branches *feature candidate* em ambientes de desenvolvimento.  
+   - **Fluxo Técnico**:
+     - Configura o ambiente de destino.
+     - Realiza o deploy utilizando ferramentas como Docker, Kubernetes ou outros pipelines.
 
-- Workflow ```rc-deploy``` contém todas as instrucoes para execucao do fluxo de versionamento semantico (explicado no passo a passo abaixo) e realizado validacao para ambiente de destino (dev) com a instrucao de **--no-promote**  no ambiente.
+6. **`hotfix-deploy`**  
+   - **Descrição**: Automatiza o deploy de branches *hotfix* em ambientes de homologação e produção.  
+   - **Detalhes**:
+     - Valida dependências antes de iniciar o deploy.
+     - Inclui verificações pós-deploy para assegurar a integridade do ambiente.
 
-- Workflow ```prod-deploy``` contém todas as instrucoes para execucao do fluxo de versionamento semantico (explicado no passo a passo abaixo) e realizado validacao para ambiente de destino (prod) com a instrucao de **--promote** no ambiente.
+7. **`rc-deploy`**  
+   - **Descrição**: Fluxo de versionamento semântico com validação para os ambientes `dev` e `homol`.  
+   - **Fluxo Técnico**:
+     - Realiza o bump de versão com base no estado atual do repositório.
+     - Valida a compatibilidade do código antes de publicar o release.
 
-## Fluxo de Versionamento semantico ( Release | Pre-Release )
+8. **`prod-deploy`**  
+   - **Descrição**: Finaliza o fluxo de versionamento semântico e publica em produção.  
+   - **Detalhes**:
+     - Inclui validações adicionais específicas para o ambiente de produção.
+     - Atualiza automaticamente a documentação com a nova versão publicada.
 
-- PreRelease = tag que sinaliza o fluxo de versionamento semantico, onde de acordo com a origem e realizado o bump de minor ou patch
-- Release = tag que sinaliza branchs que executaram todos os fluxos da pipeline e foram finalizadas com sucesso
+---
 
-## Etapas do Workflow
+## Fluxo de Versionamento Semântico (Release | Pré-Release)
 
-- abertura de branch **FC** (feature candidate ) é realizada automaticamente após fluxo do jira;
-- após interacao com **FC**, é aberto um branch **RC** (release candidate) automaticamente;
-- após interacao com **FC**, é aberto um pull request da **FC** para **RC** automaticamente;
-- após interacao com **RC**, é aberto um pull request da **RC** para **MAIN** automaticamente;
+- **Pré-Release**:  
+  Tags que identificam mudanças preliminares nas branches (ex.: `minor` ou `patch`).  
+  Utilizado para validações intermediárias antes da finalização do release.
+
+- **Release**:  
+  Tags definitivas para versões estáveis, sinalizando que a branch passou com sucesso por todos os fluxos da pipeline.
+
+---
+
+## Etapas do Workflow (Resumo)
+
+1. **Criação da branch `FC` (Feature Candidate)**  
+   - Realizada automaticamente após a abertura de uma tarefa no Jira.  
+
+2. **Interação com `FC`**  
+   - Gera automaticamente a branch `RC` (Release Candidate).  
+
+3. **Interação entre `FC` e `RC`**  
+   - Criação de um Pull Request (PR) da branch `FC` para `RC`.  
+
+4. **Interação entre `RC` e `MAIN`**  
+   - Criação de um PR da branch `RC` para `MAIN`.  
+
+---
+
+## Fluxo Gitflow
+
+- **Branches principais**:
+  - `MAIN`: Contém o código estável em produção.
+  - `DEVELOP`: Código integrado em desenvolvimento.
+  
+- **Branches de suporte**:
+  - `FEATURE`: Desenvolvimento de novas funcionalidades.
+  - `RELEASE`: Prepara o código para lançamento.
+  - `HOTFIX`: Correções emergenciais diretamente em produção.
+
+- **Padrões de nomenclatura**:
+  - `feature/<nome-da-funcionalidade>`
+  - `release/<versão>`
+  - `hotfix/<correção-específica>`
