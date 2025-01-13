@@ -1,6 +1,6 @@
 # GitHub Workflow - Repositório `XXXXXX`
 
-Com a centralização dos workflows, a Logcomex consolidou seus processos em um único repositório de templates específicos para PHP. Isso garante consistência, padronização e maior controle nos fluxos de desenvolvimento.
+Com a centralização dos workflows, a Logcomex consolidou seus processos em um único repositório de templates específicos. Isso garante consistência, padronização e maior controle nos fluxos de desenvolvimento.
 
 ### Workflows Detalhados
 
