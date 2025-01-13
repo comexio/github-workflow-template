@@ -2,9 +2,9 @@
 ## Template - XXXXXX - Link XXXXXX
 
 ## Github Workflow
-Com a centralização dos workflows agora a ATARB2B possue somente 1 repositório de templates para Py2 e Py3.
+Com a centralização dos workflows agora a logcomex possue somente 1 repositório de templates para php.
 
-- Workflow ```create-fc``` contém todas as instrucoes para criacao de uma nova branch feature candidate, ainda com integracao do jira e respeitando o padrao de nomenclaturas dos projetos (pbo|maa|asd|gdp|asdp|ae|at).
+- Workflow ```create-fc``` contém todas as instrucoes para criacao de uma nova branch feature candidate, ainda com integracao do jira e respeitando o padrao de nomenclaturas dos projetos.
 
 - Workflow ```create-rc``` e ```create-hotfix``` contém todas as instrucoes para execucao da criacao da release candidate, busca no github releases a ultima tag, instala no agent o plugin de versionamento semantico, realiza o bump de minor(fc) ou patch(hotfix), verifica se a branch já existe caso já exista apenas criará uma pull request contendo as alteracoes atuais e caso nao exista irá criar uma nova branch e realizara o upload para o github. a ultima etapa desse workflow será inserir a tag de prerelease para as novas branch criadas.
 
