@@ -17,3 +17,28 @@ jobs:
     steps:
       - name: Create feature candidate
         uses: comexio/github-create-fc-workflow@main
+  
+  unit-test:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature') != true
+    # continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Unit Tests
+        uses: comexio/github-unit-tests-workflow@main
+        with:
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  
+  sonar-scan:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature') != true
+    needs: unit-test
+    # continue-on-error: true
+    steps:
+      - name: Run Sonar Scanner
+        uses: comexio/github-sonar-scan-workflow@main
+        with:
+          github-repo-name: ${{ github.event.repository.name }}
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
