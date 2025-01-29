@@ -29,6 +29,9 @@ jobs:
         uses: comexio/github-unit-tests-workflow@main
         with:
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_AWS_KEY: ${{ secrets.CICD_AWS_KEY }}
+          CICD_AWS_SECRET: ${{ secrets.CICD_AWS_SECRET }}
+          REGION: sa-east-1
   
   sonar-scan:
     runs-on: ubuntu-latest
