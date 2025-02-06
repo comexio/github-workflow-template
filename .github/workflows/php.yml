@@ -1,4 +1,4 @@
-name: "Continuous Integration"
+name: "CI/CD - PHP"
 
 on:
   workflow_call:

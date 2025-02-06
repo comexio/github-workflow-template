@@ -1,0 +1,76 @@
+name: "CI/CD - LogOS"
+
+on:
+  workflow_call:
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  REPO_NAME: ${{github.event.repository.name}}
+  SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+  SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
+  
+jobs:
+  create-feature-candidate:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
+    # continue-on-error: true
+    steps:
+      - name: Create feature candidate
+        uses: comexio/github-create-fc-workflow@main
+  
+  unit-test:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature') != true
+    # continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Unit Tests
+        uses: comexio/github-unit-tests-workflow@main
+        with:
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_AWS_KEY: ${{ secrets.CICD_AWS_KEY }}
+          CICD_AWS_SECRET: ${{ secrets.CICD_AWS_SECRET }}
+          REGION: sa-east-1
+  
+  sonar-scan:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature') != true
+    needs: unit-test
+    # continue-on-error: true
+    steps:
+      - name: Run Sonar Scanner
+        uses: comexio/github-sonar-scan-workflow@main
+        with:
+          github-repo-name: ${{ github.event.repository.name }}
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  release-candidate:
+    if: ${{ startsWith(github.ref, 'refs/heads/fc') }}
+    # needs: sonar-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release Candidate
+        id: create_rc
+        uses: comexio/github-create-rc-workflow@main
+        with:
+          ORIGIN: "fc"
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+
+  prod-deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    if: ${{ startsWith(github.ref, 'refs/heads/main') }}
+    steps:
+    - name: Flow Deploy
+      uses: comexio/github-deploy-workflow@logos
+      with:
+        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ORIGIN: fc
+        GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+        TAG: 
