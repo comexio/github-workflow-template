@@ -10,42 +10,42 @@ env:
   SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
   
 jobs:
-  # create-feature-candidate:
-  #   runs-on: ubuntu-latest
-  #   if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
-  #   # continue-on-error: true
-  #   steps:
-  #     - name: Create feature candidate
-  #       uses: comexio/github-create-fc-workflow@main
+  create-feature-candidate:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
+    # continue-on-error: true
+    steps:
+      - name: Create feature candidate
+        uses: comexio/github-create-fc-workflow@main
   
-  # unit-test:
-  #   runs-on: ubuntu-latest
-  #   if: startsWith(github.ref, 'refs/heads/feature') != true
-  #   # continue-on-error: true
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Run Unit Tests
-  #       uses: comexio/github-unit-tests-workflow@main
-  #       with:
-  #         CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-  #         CICD_AWS_KEY: ${{ secrets.CICD_AWS_KEY }}
-  #         CICD_AWS_SECRET: ${{ secrets.CICD_AWS_SECRET }}
-  #         REGION: sa-east-1
+  unit-test:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature') != true
+    # continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Unit Tests
+        uses: comexio/github-unit-tests-workflow@main
+        with:
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_AWS_KEY: ${{ secrets.CICD_AWS_KEY }}
+          CICD_AWS_SECRET: ${{ secrets.CICD_AWS_SECRET }}
+          REGION: sa-east-1
   
-  # sonar-scan:
-  #   runs-on: ubuntu-latest
-  #   if: startsWith(github.ref, 'refs/heads/feature') != true
-  #   needs: unit-test
-  #   # continue-on-error: true
-  #   steps:
-  #     - name: Run Sonar Scanner
-  #       uses: comexio/github-sonar-scan-workflow@main
-  #       with:
-  #         github-repo-name: ${{ github.event.repository.name }}
-  #         CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  sonar-scan:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature') != true
+    needs: unit-test
+    # continue-on-error: true
+    steps:
+      - name: Run Sonar Scanner
+        uses: comexio/github-sonar-scan-workflow@main
+        with:
+          github-repo-name: ${{ github.event.repository.name }}
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   release-candidate:
     if: ${{ startsWith(github.ref, 'refs/heads/fc') }}
