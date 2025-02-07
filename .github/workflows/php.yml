@@ -72,38 +72,6 @@ jobs:
           ORIGIN: "hotfix"
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
 
-  hotfix-deploy:
-    needs: hotfix
-    runs-on: ubuntu-latest
-    environment: homol
-    steps:
-    - name: Flow Deploy
-      uses: comexio/github-deploy-workflow@main
-      with:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-        RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ubuntu
-        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-        GITHUB_COMMIT: 
-        ORIGIN: hotfix
-        GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG:
-        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
-
   feature-deploy:
     needs: release-candidate
     runs-on: ubuntu-latest
@@ -119,14 +87,14 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+        ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ vars.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ vars.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ vars.DEPLOY_FILES }}
         ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
         RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        SERVER_LIST: ${{ vars.SERVER_LIST }}
         SSH_USER: ubuntu
         SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
@@ -136,99 +104,130 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
         TAG:
         SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
+  # hotfix-deploy:
+  #   needs: hotfix
+  #   runs-on: ubuntu-latest
+  #   environment: homol
+  #   steps:
+  #   - name: Flow Deploy
+  #     uses: comexio/github-deploy-workflow@main
+  #     with:
+  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
+  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
+  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
+  #       SSH_USER: ubuntu
+  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+  #       GITHUB_COMMIT: 
+  #       ORIGIN: hotfix
+  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       TAG:
+  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
-  rc-deploy:
-    runs-on: ubuntu-latest
-    environment: homol
-    if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
-    steps:
-    - name: Flow Deploy
-      uses: comexio/github-deploy-workflow@main
-      with:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-        RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ubuntu
-        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-        GITHUB_COMMIT: 
-        ORIGIN: fc
-        GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG:
-        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
+  # rc-deploy:
+  #   runs-on: ubuntu-latest
+  #   environment: homol
+  #   if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
+  #   steps:
+  #   - name: Flow Deploy
+  #     uses: comexio/github-deploy-workflow@main
+  #     with:
+  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
+  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
+  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
+  #       SSH_USER: ubuntu
+  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+  #       GITHUB_COMMIT: 
+  #       ORIGIN: fc
+  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       TAG:
+  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
-  rc-prod-deploy:
-    runs-on: ubuntu-latest
-    environment: homol
-    if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
-    steps:
-    - name: Flow Deploy
-      uses: comexio/github-deploy-workflow@main
-      with:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-        RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ubuntu
-        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-        GITHUB_COMMIT: 
-        ORIGIN: fc
-        GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG:
-        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
+  # rc-prod-deploy:
+  #   runs-on: ubuntu-latest
+  #   environment: homol
+  #   if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
+  #   steps:
+  #   - name: Flow Deploy
+  #     uses: comexio/github-deploy-workflow@main
+  #     with:
+  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
+  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
+  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
+  #       SSH_USER: ubuntu
+  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+  #       GITHUB_COMMIT: 
+  #       ORIGIN: fc
+  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       TAG:
+  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
-  prod-deploy:
-    runs-on: ubuntu-latest
-    environment: prod
-    if: ${{ startsWith(github.ref, 'refs/heads/main') }}
-    steps:
-    - name: Flow Deploy
-      uses: comexio/github-deploy-workflow@main
-      with:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-        RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ubuntu
-        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-        GITHUB_COMMIT: 
-        ORIGIN: fc
-        GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG:
-        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
+  # prod-deploy:
+  #   runs-on: ubuntu-latest
+  #   environment: prod
+  #   if: ${{ startsWith(github.ref, 'refs/heads/main') }}
+  #   steps:
+  #   - name: Flow Deploy
+  #     uses: comexio/github-deploy-workflow@main
+  #     with:
+  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
+  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
+  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
+  #       SSH_USER: ubuntu
+  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+  #       GITHUB_COMMIT: 
+  #       ORIGIN: fc
+  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       TAG:
+  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
