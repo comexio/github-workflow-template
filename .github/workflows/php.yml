@@ -93,14 +93,15 @@ jobs:
         ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
         RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
         SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-        SSH_KEY_FILE: ${{ secrets.SSH_KEY_FILE }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
         GITHUB_COMMIT: 
         ORIGIN: hotfix
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG: 
+        TAG:
+        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   feature-deploy:
     needs: release-candidate
@@ -125,14 +126,15 @@ jobs:
         ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
         RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
         SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-        SSH_KEY_FILE: ${{ secrets.SSH_KEY_FILE }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
         GITHUB_COMMIT: 
         ORIGIN: fc
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG: 
+        TAG:
+        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   rc-deploy:
     runs-on: ubuntu-latest
@@ -156,14 +158,15 @@ jobs:
         ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
         RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
         SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-        SSH_KEY_FILE: ${{ secrets.SSH_KEY_FILE }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
         GITHUB_COMMIT: 
         ORIGIN: fc
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG: 
+        TAG:
+        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   rc-prod-deploy:
     runs-on: ubuntu-latest
@@ -187,14 +190,15 @@ jobs:
         ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
         RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
         SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-        SSH_KEY_FILE: ${{ secrets.SSH_KEY_FILE }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
         GITHUB_COMMIT: 
         ORIGIN: fc
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG: 
+        TAG:
+        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   prod-deploy:
     runs-on: ubuntu-latest
@@ -218,11 +222,12 @@ jobs:
         ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
         RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
         SERVER_LIST: ${{ secrets.SERVER_LIST }}
-        SSH_USER: ${{ secrets.SSH_USER }}
-        SSH_KEY_FILE: ${{ secrets.SSH_KEY_FILE }}
-        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE }}
-        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
         GITHUB_COMMIT: 
         ORIGIN: fc
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG: 
+        TAG:
+        SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
