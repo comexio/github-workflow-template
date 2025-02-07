@@ -32,6 +32,7 @@ jobs:
           CICD_AWS_KEY: ${{ secrets.CICD_AWS_KEY }}
           CICD_AWS_SECRET: ${{ secrets.CICD_AWS_SECRET }}
           REGION: sa-east-1
+          APP_CONTAINER_NAME: ${{ secrets.APP_CONTAINER_NAME }}
   
   sonar-scan:
     runs-on: ubuntu-latest
