@@ -50,6 +50,8 @@ jobs:
 
   release-candidate:
     if: ${{ startsWith(github.ref, 'refs/heads/fc') }}
+    outputs:
+      tag: ${{ steps.create_rc.outputs.tag }}
     # needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
@@ -92,17 +94,13 @@ jobs:
         DOCKERFILE_PATH: ${{ vars.DOCKERFILE_PATH }}
         BASE_IMAGE: ${{ vars.BASE_IMAGE }}
         DEPLOY_FILES: ${{ vars.DEPLOY_FILES }}
-        ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-        RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
         SERVER_LIST: ${{ vars.SERVER_LIST }}
         SSH_USER: ubuntu
         SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
         OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-        GITHUB_COMMIT: 
         ORIGIN: fc
         GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-        TAG:
         SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
   # hotfix-deploy:
   #   needs: hotfix
@@ -123,17 +121,13 @@ jobs:
   #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
   #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
   #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
   #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
   #       SSH_USER: ubuntu
   #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       GITHUB_COMMIT: 
   #       ORIGIN: hotfix
   #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-  #       TAG:
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   # rc-deploy:
@@ -155,17 +149,13 @@ jobs:
   #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
   #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
   #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
   #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
   #       SSH_USER: ubuntu
   #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       GITHUB_COMMIT: 
   #       ORIGIN: fc
   #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-  #       TAG:
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   # rc-prod-deploy:
@@ -187,17 +177,13 @@ jobs:
   #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
   #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
   #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
   #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
   #       SSH_USER: ubuntu
   #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       GITHUB_COMMIT: 
   #       ORIGIN: fc
   #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-  #       TAG:
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   # prod-deploy:
@@ -219,15 +205,11 @@ jobs:
   #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
   #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
   #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       ARTIFACT_NAME: ${{ secrets.ARTIFACT_NAME }}
-  #       RETENTION_DAYS: ${{ secrets.RETENTION_DAYS }}
   #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
   #       SSH_USER: ubuntu
   #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       GITHUB_COMMIT: 
   #       ORIGIN: fc
   #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
-  #       TAG:
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
