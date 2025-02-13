@@ -100,7 +100,7 @@ jobs:
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
         OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
         ORIGIN: fc
-        GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
         SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
   # hotfix-deploy:
   #   needs: hotfix
@@ -127,7 +127,7 @@ jobs:
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
   #       ORIGIN: hotfix
-  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   # rc-deploy:
@@ -155,7 +155,7 @@ jobs:
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
   #       ORIGIN: fc
-  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   # rc-prod-deploy:
@@ -183,7 +183,7 @@ jobs:
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
   #       ORIGIN: fc
-  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
 
   # prod-deploy:
@@ -211,5 +211,5 @@ jobs:
   #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
   #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
   #       ORIGIN: fc
-  #       GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
   #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
