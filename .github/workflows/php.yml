@@ -63,7 +63,7 @@ jobs:
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
 
   hotfix:
-    if: ${{ startsWith(github.ref, 'refs/heads/hotfix') }}
+    if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
     # needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
