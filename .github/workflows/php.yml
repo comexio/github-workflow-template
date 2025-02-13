@@ -13,7 +13,6 @@ jobs:
   create-feature-candidate:
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
-    # continue-on-error: true
     steps:
       - name: Create feature candidate
         uses: comexio/github-create-fc-workflow@main
@@ -50,9 +49,7 @@ jobs:
 
   release-candidate:
     if: ${{ startsWith(github.ref, 'refs/heads/fc') }}
-    outputs:
-      tag: ${{ steps.create_rc.outputs.tag }}
-    # needs: sonar-scan
+    needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
       - name: Create Release Candidate
@@ -62,9 +59,9 @@ jobs:
           ORIGIN: "fc"
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
 
-  hotfix:
+  hotfix-release-candidate:
     if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
-    # needs: sonar-scan
+    needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
       - name: Create Release Candidate
@@ -103,7 +100,7 @@ jobs:
         SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
   
   hotfix-deploy:
-    needs: hotfix
+    needs: hotfix-release-candidate
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
     environment: homol
