@@ -57,7 +57,7 @@ jobs:
         uses: comexio/github-create-rc-workflow@main
         with:
           ORIGIN: "fc"
-          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
 
   hotfix-release-candidate:
     if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
@@ -69,7 +69,7 @@ jobs:
         uses: comexio/github-create-rc-workflow@main
         with:
           ORIGIN: "hotfix"
-          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
 
   feature-deploy:
     needs: release-candidate
