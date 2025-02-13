@@ -99,117 +99,87 @@ jobs:
         SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
         OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-        ORIGIN: fc
         GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
         SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
-  # hotfix-deploy:
-  #   needs: hotfix
-  #   runs-on: ubuntu-latest
-  #   environment: homol
-  #   steps:
-  #   - name: Flow Deploy
-  #     uses: comexio/github-deploy-workflow@main
-  #     with:
-  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
-  #       SSH_USER: ubuntu
-  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       ORIGIN: hotfix
-  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
-  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
+  
+  hotfix-deploy:
+    needs: hotfix
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
+    environment: homol
+    steps:
+    - name: Flow Deploy
+      uses: comexio/github-deploy-workflow@main
+      with:
+        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+        GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
+        SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
 
-  # rc-deploy:
-  #   runs-on: ubuntu-latest
-  #   environment: homol
-  #   if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
-  #   steps:
-  #   - name: Flow Deploy
-  #     uses: comexio/github-deploy-workflow@main
-  #     with:
-  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
-  #       SSH_USER: ubuntu
-  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       ORIGIN: fc
-  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
-  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
+  rc-deploy:
+    runs-on: ubuntu-latest
+    environment: homol
+    if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
+    steps:
+    - name: Flow Deploy
+      uses: comexio/github-deploy-workflow@main
+      with:
+        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+        GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
+        SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
 
-  # rc-prod-deploy:
-  #   runs-on: ubuntu-latest
-  #   environment: homol
-  #   if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
-  #   steps:
-  #   - name: Flow Deploy
-  #     uses: comexio/github-deploy-workflow@main
-  #     with:
-  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
-  #       SSH_USER: ubuntu
-  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       ORIGIN: fc
-  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
-  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
-
-  # prod-deploy:
-  #   runs-on: ubuntu-latest
-  #   environment: prod
-  #   if: ${{ startsWith(github.ref, 'refs/heads/main') }}
-  #   steps:
-  #   - name: Flow Deploy
-  #     uses: comexio/github-deploy-workflow@main
-  #     with:
-  #       AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
-  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-  #       AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
-  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-  #       ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
-  #       ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-  #       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-  #       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-  #       DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-  #       BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-  #       DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-  #       SERVER_LIST: ${{ secrets.SERVER_LIST }}
-  #       SSH_USER: ubuntu
-  #       SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
-  #       OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
-  #       OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
-  #       ORIGIN: fc
-  #       GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
-  #       SECRET_MANAGER_KEY: ${{ secrets.SECRET_MANAGER_KEY }}
+  prod-deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    if: ${{ startsWith(github.ref, 'refs/heads/main') }}
+    steps:
+    - name: Flow Deploy
+      uses: comexio/github-deploy-workflow@main
+      with:
+        AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
+        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
+        ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
+        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
+        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        SSH_USER: ubuntu
+        SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
+        OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
+        OVPN_CERT_PASS: ${{ secrets.OVPN_CERT_PASS_DEVOPS }}
+        GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
+        SECRET_MANAGER_KEY: ${{ vars.SECRET_MANAGER_KEY }}
