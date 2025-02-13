@@ -114,12 +114,12 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ vars.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ vars.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ vars.DEPLOY_FILES }}
+        SERVER_LIST: ${{ vars.SERVER_LIST }}
         SSH_USER: ubuntu
         SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
@@ -142,12 +142,12 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ vars.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ vars.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ vars.DEPLOY_FILES }}
+        SERVER_LIST: ${{ vars.SERVER_LIST }}
         SSH_USER: ubuntu
         SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
@@ -170,12 +170,12 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
-        ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-        DOCKERFILE_PATH: ${{ secrets.DOCKERFILE_PATH }}
-        BASE_IMAGE: ${{ secrets.BASE_IMAGE }}
-        DEPLOY_FILES: ${{ secrets.DEPLOY_FILES }}
-        SERVER_LIST: ${{ secrets.SERVER_LIST }}
+        ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+        IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+        DOCKERFILE_PATH: ${{ vars.DOCKERFILE_PATH }}
+        BASE_IMAGE: ${{ vars.BASE_IMAGE }}
+        DEPLOY_FILES: ${{ vars.DEPLOY_FILES }}
+        SERVER_LIST: ${{ vars.SERVER_LIST }}
         SSH_USER: ubuntu
         SSH_KEY_FILE: ${{ secrets.CICD_SSH_KEY }}
         OVPN_CONFIG_FILE: ${{ secrets.OVPN_CONFIG_FILE_DEVOPS }}
