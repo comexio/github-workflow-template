@@ -110,7 +110,7 @@ jobs:
       with:
         AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_REGION: ${{ vars.CICD_AWS_REGION }}
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
@@ -138,7 +138,7 @@ jobs:
       with:
         AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_REGION: ${{ vars.CICD_AWS_REGION }}
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
@@ -166,7 +166,7 @@ jobs:
       with:
         AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
-        AWS_REGION: ${{ secrets.CICD_AWS_REGION }}
+        AWS_REGION: ${{ vars.CICD_AWS_REGION }}
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ENV_FILE_PATH: ${{ secrets.ENV_FILE_PATH }}
         ENV_ENCRYPTION_PASSWORD: ${{ secrets.CICD_ENV_ENCRYPTION_PASSWORD }}
