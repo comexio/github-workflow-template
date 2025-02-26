@@ -74,7 +74,7 @@ jobs:
   homol-deploy:
     runs-on: ubuntu-latest
     environment: homol
-    if: ${{ startsWith(github.ref, 'refs/heads/rc') || startsWith(github.ref, 'refs/heads/fix') }}
+    if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
     steps:
     - name: Flow Deploy
       uses: comexio/github-deploy-workflow@logos
