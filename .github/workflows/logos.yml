@@ -59,10 +59,22 @@ jobs:
           ORIGIN: "fc"
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
 
+  fix-candidate:
+    if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
+    # needs: sonar-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release Candidate
+        id: create_rc
+        uses: comexio/github-create-rc-workflow@main
+        with:
+          ORIGIN: "fix"
+          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+
   homol-deploy:
     runs-on: ubuntu-latest
     environment: homol
-    if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
+    if: ${{ startsWith(github.ref, 'refs/heads/rc') || startsWith(github.ref, 'refs/heads/fix') }}
     steps:
     - name: Flow Deploy
       uses: comexio/github-deploy-workflow@logos
