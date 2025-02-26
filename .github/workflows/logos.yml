@@ -101,7 +101,7 @@ jobs:
   prod-deploy:
     runs-on: ubuntu-latest
     environment: prod
-    if: ${{ startsWith(github.ref, 'refs/heads/main') }}
+    if: ${{ startsWith(github.ref, 'refs/heads/mainnn') }}
     steps:
     - name: Flow Deploy
       uses: comexio/github-deploy-workflow@logos
