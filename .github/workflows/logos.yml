@@ -56,7 +56,6 @@ jobs:
         id: create_rc
         uses: comexio/github-create-rc-workflow@main
         with:
-          ORIGIN: "fc"
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
 
   fix-candidate:
@@ -68,7 +67,6 @@ jobs:
         id: create_rc
         uses: comexio/github-create-rc-workflow@main
         with:
-          ORIGIN: "fix"
           CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
 
   homol-deploy:
