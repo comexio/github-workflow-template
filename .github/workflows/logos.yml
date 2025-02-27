@@ -10,13 +10,13 @@ env:
   SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
   
 jobs:
-  # create-feature-candidate:
-  #   runs-on: ubuntu-latest
-  #   if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
-  #   # continue-on-error: true
-  #   steps:
-  #     - name: Create feature candidate
-  #       uses: comexio/github-create-fc-workflow@main
+  create-fc:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
+    # continue-on-error: true
+    steps:
+      - name: Create feature candidate
+        uses: comexio/github-create-fc-workflow@main
   
   # unit-test:
   #   runs-on: ubuntu-latest
