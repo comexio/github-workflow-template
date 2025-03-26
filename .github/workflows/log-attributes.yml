@@ -43,7 +43,7 @@ jobs:
   #       uses: comexio/github-sonar-scan-workflow@main
   #       with:
   #         github-repo-name: ${{ github.event.repository.name }}
-  #         CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+  #         CICD_GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
@@ -56,7 +56,7 @@ jobs:
         id: create_rc
         uses: comexio/github-create-rc-workflow@main
         with:
-          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
 
   fix-candidate:
     if: ${{ startsWith(github.ref, 'refs/heads/fix') }}
@@ -67,7 +67,7 @@ jobs:
         id: create_rc
         uses: comexio/github-create-rc-workflow@main
         with:
-          CICD_GITHUB_TOKEN: ${{ secrets.CICD_GITHUB_TOKEN }}
+          CICD_GITHUB_TOKEN: ${{ secrets.LOGFLOW_CICD_WORKFLOWS }}
 
   homol-deploy:
     runs-on: ubuntu-latest
