@@ -75,7 +75,7 @@ jobs:
     if: ${{ startsWith(github.ref, 'refs/heads/rc') }}
     steps:
     - name: Flow Deploy
-      uses: comexio/github-deploy-workflow@log-attributes
+      uses: comexio/github-deploy-workflow@atributos
       with:
         AWS_ACCESS_KEY_ID: ${{ secrets.CICD_AWS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CICD_AWS_SECRET }}
